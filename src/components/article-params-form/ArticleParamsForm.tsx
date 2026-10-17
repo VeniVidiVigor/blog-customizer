@@ -1,8 +1,13 @@
 import { clsx } from 'clsx';
 import { useState, useRef } from 'react';
-import { defaultArticleState, fontFamilyOptions } from 'src/constants/articleProps';
+import {
+  defaultArticleState,
+  fontFamilyOptions,
+  fontSizeOptions,
+} from 'src/constants/articleProps';
 import { ArrowButton } from 'src/ui/arrow-button';
 import { Button } from 'src/ui/button';
+import { RadioGroup } from 'src/ui/radio-group';
 import { Select } from 'src/ui/select';
 import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
 import { Text } from 'src/ui/text';
@@ -12,7 +17,7 @@ import styles from './ArticleParamsForm.module.scss';
 export const ArticleParamsForm = (): React.JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const [font, setFont] = useState(defaultArticleState.fontFamilyOption);
+  const [formState, setFormState] = useState(defaultArticleState);
 
   useOutsideClickClose({
     isOpen,
@@ -32,10 +37,23 @@ export const ArticleParamsForm = (): React.JSX.Element => {
           </div>
           <div>
             <Select
-              onChange={setFont}
-              selected={font}
+              onChange={(option) =>
+                setFormState({ ...formState, fontFamilyOption: option })
+              }
+              selected={formState.fontFamilyOption}
               options={fontFamilyOptions}
               title="Шрифт"
+            />
+          </div>
+          <div>
+            <RadioGroup
+              selected={formState.fontSizeOption}
+              name="fontSize"
+              onChange={(option) =>
+                setFormState({ ...formState, fontSizeOption: option })
+              }
+              options={fontSizeOptions}
+              title="Размер шрифта"
             />
           </div>
           <div className={styles.bottomContainer}>
