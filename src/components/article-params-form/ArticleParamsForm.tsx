@@ -41,11 +41,17 @@ export const ArticleParamsForm = ({
     onApply(formState);
   };
 
+  const handleReset = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    setFormState(defaultArticleState);
+    onApply(defaultArticleState);
+  };
+
   return (
     <div ref={rootRef}>
       <ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
       <aside className={clsx(styles.container, { [styles.container_open]: isOpen })}>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
           <div>
             <Text as="h2" size={31} weight={800} uppercase>
               Задайте параметры
