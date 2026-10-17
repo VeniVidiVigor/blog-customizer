@@ -1,7 +1,10 @@
 import { clsx } from 'clsx';
 import { useState, useRef } from 'react';
 import {
+  backgroundColors,
+  contentWidthArr,
   defaultArticleState,
+  fontColors,
   fontFamilyOptions,
   fontSizeOptions,
 } from 'src/constants/articleProps';
@@ -10,6 +13,7 @@ import { Button } from 'src/ui/button';
 import { RadioGroup } from 'src/ui/radio-group';
 import { Select } from 'src/ui/select';
 import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
+import { Separator } from 'src/ui/separator';
 import { Text } from 'src/ui/text';
 
 import styles from './ArticleParamsForm.module.scss';
@@ -54,6 +58,35 @@ export const ArticleParamsForm = (): React.JSX.Element => {
               }
               options={fontSizeOptions}
               title="Размер шрифта"
+            />
+          </div>
+          <div>
+            <Select
+              onChange={(option) => setFormState({ ...formState, fontColor: option })}
+              selected={formState.fontColor}
+              options={fontColors}
+              title="Цвет шрифта"
+            />
+          </div>
+          <div>
+            <Separator />
+          </div>
+          <div>
+            <Select
+              onChange={(option) =>
+                setFormState({ ...formState, backgroundColor: option })
+              }
+              selected={formState.backgroundColor}
+              options={backgroundColors}
+              title="Цвет фона"
+            />
+          </div>
+          <div>
+            <Select
+              onChange={(option) => setFormState({ ...formState, contentWidth: option })}
+              selected={formState.contentWidth}
+              options={contentWidthArr}
+              title="Ширина контента"
             />
           </div>
           <div className={styles.bottomContainer}>
